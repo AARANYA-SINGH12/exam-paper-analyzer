@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exam Paper Analyzer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <h1>Exam Paper Analyzer</h1>
+
+    <div class="card">
+        <form method="POST" action="/analyze" enctype="multipart/form-data">
+            <label>Subject Name</label>
+            <input type="text" name="subject" placeholder="e.g. Data Structures">
+            <label>Import Papers</label>
+            <input type="file" name="papers" multiple accept=".pdf">
+            <button>Submit</button>
+        </form>
+
+        <div id="loading" style="display:none;">
+            <div class="spinner"></div>
+            <p>Analyzing your papers... this may take 15–30 seconds.</p>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector("form").addEventListener("submit", function() {
+            document.querySelector("form").style.display = "none";
+            document.getElementById("loading").style.display = "block";
+        });
+    </script>
+
+</body>
+</html>

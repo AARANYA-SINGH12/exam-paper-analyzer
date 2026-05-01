@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Results</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <h1>Results for {{ subject }}</h1>
+
+    <div class="stats-row">
+        <div class="stat-card red">
+            <div class="stat-num">{{ results.topics | selectattr("priority", "equalto", "Must Study") | list | length }}</div>
+            <div class="stat-label">Must Study</div>
+        </div>
+        <div class="stat-card amber">
+            <div class="stat-num">{{ results.topics | selectattr("priority", "equalto", "Moderate") | list | length }}</div>
+            <div class="stat-label">Moderate</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-num">{{ results.topics | length }}</div>
+            <div class="stat-label">Total Topics</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 style="color: whitesmoke;">Topic Priority</h2>
+
+        {% for topic in results.topics %}
+        <div class="topic-row">
+            <div class="topic-info">
+                {% if topic.priority == "Must Study" %}
+                    <span class="must-study">{{ topic.label }}</span>
+                    <span class="must-study">{{ topic.priority }}</span>
+                {% elif topic.priority == "Moderate" %}
+                    <span class="moderate">{{ topic.label }}</span>
+                    <span class="moderate">{{ topic.priority }}</span>
+                {% else %}
+                    <span class="low">{{ topic.label }}</span>
+                    <span class="low">{{ topic.priority }}</span>
+                {% endif %}
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill {{ topic.priority | lower | replace(' ', '-') }}"
+                     style="width: {{ topic.percentage }}%">
+                </div>
+            </div>
+            <span class="pct-label">{{ topic.percentage }}%</span>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <div class="card">
+        <h2 style="color: whitesmoke;">Predicted This Year</h2>
+        {% if results.predicted_topics %}
+            {% for topic in results.predicted_topics %}
+                <p>{{ topic.label }}</p>
+            {% endfor %}
+        {% else %}
+            <p style="color: #888780;">No predictions yet — add more papers!</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
