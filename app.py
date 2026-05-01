@@ -7,6 +7,8 @@ from analyzer.pattern_engine import analyze_patterns
 
 app = Flask(__name__)
 
+os.makedirs("uploads", exist_ok=True)
+
 @app.route("/")
 def home():
     return render_template("index.html")
