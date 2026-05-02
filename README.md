@@ -65,6 +65,7 @@ Open `http://127.0.0.1:5000` in your browser.
 
 ## 📁 Project Structure
 
+```
 exam-analyzer/
 ├── analyzer/
 │   ├── pdf_parser.py          # PDF text extraction + cleaning
@@ -79,6 +80,7 @@ exam-analyzer/
 ├── app.py                     # Flask routes
 ├── requirements.txt
 └── Procfile
+```
 
 
 ## 🎯 What Makes It Unique
